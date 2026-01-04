@@ -44,9 +44,7 @@ const AddEmployee = () => {
       toast.success("Xodim muvaffaqiyatli qo‘shildi");
       queryClient.invalidateQueries({ queryKey: ["employees"] });
       reset();
-      setTimeout(() => {
-        navigate("/");
-      }, 1220);
+      navigate("/");
     },
     onError: () => {
       toast.error("Xatolik yuz berdi");
@@ -136,7 +134,7 @@ const AddEmployee = () => {
             </div>
 
             <div className="flex flex-col gap-[2px]">
-              <label htmlFor="birthDate">Tug'ilan sana</label>
+              <label htmlFor="birthDate">Tug'ilgan sana</label>
               <input
                 type="date"
                 {...register("birthDate", {
