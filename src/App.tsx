@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import AddEmployee from "./pages/AddEmployee";
 import { PrivateRoute } from "./components/PrivateRoute";
+import EditEmployee from "./pages/EditEmloyee";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/add-employee" element={<AddEmployee />} />
+        <Route path="/edit-employee/:id" element={<EditEmployee />} />
       </Route>
     </Routes>
   );
