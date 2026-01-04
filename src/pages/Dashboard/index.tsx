@@ -2,13 +2,14 @@ import { useEffect, useState, useRef } from "react";
 import { BiPlus } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
 import { FiSearch } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import toast, { Toaster } from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TbEdit } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
+import { IoEyeOutline } from "react-icons/io5";
 
 type Employee = {
   id: string;
@@ -16,6 +17,26 @@ type Employee = {
   phoneNumber: string;
   email: string;
   position: string;
+  status: "active" | "onboarding" | "probation" | "inactive";
+};
+
+const statusConfig = {
+  active: {
+    label: "Faol",
+    className: "bg-green-500 text-white",
+  },
+  onboarding: {
+    label: "Moslashuvda",
+    className: "bg-blue-500 text-white",
+  },
+  probation: {
+    label: "Sinov muddati",
+    className: "bg-yellow-500 text-black",
+  },
+  inactive: {
+    label: "Faol emas",
+    className: "bg-red-500 text-white",
+  },
 };
 
 const API_URL = "https://6915c6cd465a9144626d8a12.mockapi.io/simplex_task";
@@ -141,6 +162,7 @@ const Dashboard = () => {
               <th className="text-left p-3 font-semibold">Tel raqami</th>
               <th className="text-left p-3 font-semibold">Email</th>
               <th className="text-left p-3 font-semibold">Lavozim</th>
+              <th className="text-left p-3 font-semibold">Holati</th>
               <th></th>
             </tr>
           </thead>
@@ -155,19 +177,34 @@ const Dashboard = () => {
               employees.map((emp) => (
                 <tr
                   key={emp.id}
-                  className="border-b border-gray-600 last:border-none"
+                  className="border-b border-gray-600 hover:bg-[#2a2a2a] cursor-pointer last:border-none"
                 >
                   <td className="p-3">{`0${emp.id}`}</td>
-                  <td className="p-3">{emp.fullName}</td>
+                  <td className="p-3">
+                    <Link to={`/employees/${emp.id}`}>{emp.fullName}</Link>
+                  </td>
                   <td className="p-3">{formatNumber(emp.phoneNumber)}</td>
                   <td className="p-3">{emp.email}</td>
                   <td className="p-3">{emp.position}</td>
+                  <td className="p-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        statusConfig[emp.status].className
+                      }`}
+                    >
+                      {statusConfig[emp.status].label}
+                    </span>
+                  </td>
                   <td className="relative">
                     <button
                       onClick={() =>
                         setOpenMenuId(openMenuId === emp.id ? null : emp.id)
                       }
-                      className={`cursor-pointer hover:bg-[#00000052] px-[6px] mr-[-8px] py-3 rounded-md ${openMenuId === emp.id ? 'bg-[#00000052]' : 'bg-transparent'} `}
+                      className={`cursor-pointer hover:bg-[#00000052] mr-[-3px] px-[6px] py-3 rounded-md ${
+                        openMenuId === emp.id
+                          ? "bg-[#00000052]"
+                          : "bg-transparent"
+                      } `}
                     >
                       <SlOptionsVertical />
                     </button>
@@ -178,8 +215,14 @@ const Dashboard = () => {
                         className="absolute right-0 text-[14px] flex flex-col mt-2 overflow-hidden w-[120px] bg-[#2A2A2A] border border-gray-600 rounded-md shadow-lg z-10"
                       >
                         <button
+                          onClick={() => navigate(`/employees/${emp.id}`)}
+                          className="w-full flex items-center gap-[7px] py-2 cursor-pointer pl-2 border-b hover:text-[#FF733B] border-gray-600 text-left hover:bg-[#353535]"
+                        >
+                          <IoEyeOutline size={20} /> Ko'rish
+                        </button>
+                        <button
                           onClick={() => navigate(`/edit-employee/${emp.id}`)}
-                          className="w-full flex items-center gap-[5px] py-2 cursor-pointer pl-2 border-b border-gray-600 text-left hover:bg-[#353535]"
+                          className="w-full flex items-center gap-[5px] py-2 cursor-pointer pl-2 border-b hover:text-green-500 border-gray-600 text-left hover:bg-[#353535]"
                         >
                           <TbEdit size={22} /> Tahrirlash
                         </button>

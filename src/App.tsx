@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import AddEmployee from "./pages/AddEmployee";
 import { PrivateRoute } from "./components/PrivateRoute";
 import EditEmployee from "./pages/EditEmloyee";
+import EmployeeDetails from "./pages/EmployeeDetails";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/" element={<Dashboard />} />
         <Route path="/add-employee" element={<AddEmployee />} />
         <Route path="/edit-employee/:id" element={<EditEmployee />} />
+        <Route path="/employees/:id" element={<EmployeeDetails />} />
       </Route>
     </Routes>
   );
