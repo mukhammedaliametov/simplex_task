@@ -11,10 +11,7 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const ENV_LOGIN = import.meta.env.VITE_LOGIN;
-    const ENV_PASSWORD = import.meta.env.VITE_PASSWORD;
-
-    if (login === ENV_LOGIN && password === ENV_PASSWORD) {
+    if (login === 'simplex2016' && password === 'simplex2016') {
       localStorage.setItem("isAuth", "true");
       localStorage.setItem("justLoggedIn", "true");
       navigate("/");
