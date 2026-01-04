@@ -14,7 +14,7 @@ type Employee = {
   position: string;
 };
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = 'https://6915c6cd465a9144626d8a12.mockapi.io/simplex_task';
 
 const fetchEmployees = async (): Promise<Employee[]> => {
   const res = await fetch(API_URL);
