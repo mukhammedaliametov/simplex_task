@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BiPlus } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
 import { FiSearch } from "react-icons/fi";
